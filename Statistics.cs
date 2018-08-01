@@ -9,7 +9,6 @@ namespace GlobalSharp
 {
     public class Statistics : GlobalBase
     {
-        internal string Id;
         internal readonly Random Random;
         internal string GenerateUsername => $"IO-{Random.Next(9999)}";
 
@@ -18,7 +17,7 @@ namespace GlobalSharp
             Random = new Random();
         }
 
-        public async Task<IOStatistics> CreateAsync( string name = null)
+        public async Task<IOStatistics> CreateAsync(string name = null)
         {
             var login = await LoginAsync();
             if (!login || !IOAccessToken.IsValid)
@@ -30,9 +29,14 @@ namespace GlobalSharp
             }), Encoding.UTF8, "application/json");
             var post = await Client.PostAsync("v1/statistics", content);
             if (!post.IsSuccessStatusCode)
-                throw new GlobalException(EvaluateException((int)post.StatusCode));
+                throw new GlobalException(EvaluateException((int) post.StatusCode));
             var responseContent = Deserialize<IOStatistics>(await post.Content.ReadAsStreamAsync());
-            
+            content.Dispose();
+            post.Content.Dispose();
+            return responseContent;
         }
+        
+        
+        
     }
 }
