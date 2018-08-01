@@ -35,13 +35,26 @@ namespace GlobalSharp
                 Encoding.UTF8, "application/x-www-form-urlencoded");
             var post = await Client.PostAsync("oauth/access_token", content);
             if (!post.IsSuccessStatusCode)
-                throw new Exception(post.ReasonPhrase);
+                throw new GlobalException(EvaluateException((int) post.StatusCode));
             IOAccessToken = Deserialize<IOAccessToken>(await post.Content.ReadAsStreamAsync());
             content.Dispose();
             post.Content.Dispose();
             Client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(IOAccessToken.TokenType, IOAccessToken.Token);
             return string.IsNullOrWhiteSpace(IOAccessToken.Token);
+        }
+
+        protected string EvaluateException(int errorCode)
+        {
+            switch (errorCode)
+            {
+                case 400: return "Either the OAuth token or request content is invalid.";
+                case 403: return "You are not allowed to access this resource!";
+                case 404: return "Woops, couldn't find anything here. Is the URL address correct?";
+                case 405: return "You aren't allowed to access this feature.";
+                case 503: return "Woah! Slow down. Rate limit reached.";
+                default: return string.Empty;
+            }
         }
 
         protected T Deserialize<T>(Stream stream)

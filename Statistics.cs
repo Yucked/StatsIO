@@ -18,14 +18,11 @@ namespace GlobalSharp
             Random = new Random();
         }
 
-        public async Task<IOStatistics> AddOrUpdateAsync(string id = null, string name = null)
+        public async Task<IOStatistics> CreateAsync( string name = null)
         {
             var login = await LoginAsync();
             if (!login || !IOAccessToken.IsValid)
                 return default(IOStatistics);
-            id = string.IsNullOrWhiteSpace(id) && !string.IsNullOrWhiteSpace(Id) ? Id : string.Empty;
-            var requestUrl = !string.IsNullOrWhiteSpace(id) ? $"v1/statistics/{id}" : "v1/statistics/";
-            
             var content = new StringContent(JsonConvert.SerializeObject(new InitialStats
             {
                 Name = string.IsNullOrWhiteSpace(name) ? GenerateUsername : name,
@@ -33,8 +30,9 @@ namespace GlobalSharp
             }), Encoding.UTF8, "application/json");
             var post = await Client.PostAsync("v1/statistics", content);
             if (!post.IsSuccessStatusCode)
-                throw new Exception(post.ReasonPhrase);
+                throw new GlobalException(EvaluateException((int)post.StatusCode));
             var responseContent = Deserialize<IOStatistics>(await post.Content.ReadAsStreamAsync());
+            
         }
     }
 }
