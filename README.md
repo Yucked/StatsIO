@@ -1,5 +1,5 @@
 # GlobalSharp 🏅
-API wrapper for [GlobalStats.io](https://globalstats.io/api).
+[![Build status](https://img.shields.io/appveyor/ci/yucked/globalsharp/master.svg?longCache=true&style=for-the-badge&logo=appveyor&colorA=303030&colorB=72ffc9&label=Current+Build)](https://ci.appveyor.com/project/Yucked/globalsharp)
 
 ## `Usage:`
 
