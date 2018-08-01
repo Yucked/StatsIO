@@ -1,0 +1,14 @@
+version: GSI.{build}
+image: Visual Studio 2017 Preview
+clone_folder: C:\Projects\GlobalSharp
+skip_commits:
+  message: /Update/
+nuget:
+  account_feed: true
+  project_feed: true
+before_build:
+- cmd: dotnet restore
+build:
+  verbosity: minimal
+after_build:
+- cmd: dotnet build
