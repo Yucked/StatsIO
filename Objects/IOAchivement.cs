@@ -5,18 +5,18 @@ namespace GlobalSharp.Objects
     public struct IOAchievement
     {
         [JsonProperty("key")]
-        public string Key { get; set; }
+        public string Key { get; internal set; }
 
         [JsonProperty("name")]
-        public string Name { get; set; }
+        public string Name { get; internal set; }
 
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string Description { get; internal set; }
 
         [JsonProperty("image_active")]
-        public string ImageActive { get; set; }
+        public string ImageActive { get; internal set; }
 
         [JsonProperty("image_inactive")]
-        public string ImageInactive { get; set; }
+        public string ImageInactive { get; internal set; }
     }
 }
