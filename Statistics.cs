@@ -17,6 +17,11 @@ namespace GlobalSharp
             Random = new Random();
         }
 
+        /// <summary>
+        /// Creates a new entry in your GTD
+        /// </summary>
+        /// <param name="name">Name of the user</param>
+        /// <exception cref="GlobalException"></exception>
         public async Task<IOStatistics> CreateAsync(string name = null)
         {
             var login = await LoginAsync();
@@ -35,8 +40,20 @@ namespace GlobalSharp
             post.Content.Dispose();
             return responseContent;
         }
-        
-        
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Id"><see cref="IOStatistics"/></param>
+        /// <returns></returns>
+        public async Task UpdateAsync(string Id)
+        {
+            var put = await Client.PutAsync($"/v1/statistics/{Id}", null);
+        }
+
+        public async Task ShowUserStatsAsync(string id)
+        {
+            
+        }
     }
 }
