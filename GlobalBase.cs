@@ -30,7 +30,7 @@ namespace GlobalSharp
 
         protected async Task<bool> LoginAsync()
         {
-            if (IOAccessToken.IsValid) return true;
+            if (IOAccessToken != null && IOAccessToken.IsValid) return true;
             var content = new StringContent(
                 $"grant_type=client_credentials&scope=endpoint_client&client_id={ClientId}&client_secret={ClientSecret}",
                 Encoding.UTF8, "application/x-www-form-urlencoded");
