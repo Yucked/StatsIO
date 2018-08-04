@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GlobalSharp.Objects
+namespace StatsIO.Objects
 {
     public struct IOStatistics
     {
@@ -12,24 +12,9 @@ namespace GlobalSharp.Objects
         public string Id { get; internal set; }
 
         [JsonProperty("values")] 
-        public IReadOnlyCollection<StatsValue> Values { get; internal set; }
+        public IReadOnlyCollection<IOStatsValue> Values { get; internal set; }
 
         [JsonProperty("achievements")] 
         public IReadOnlyCollection<IOAchievement> Achievements { get; internal set; }
-    }
-
-    public struct StatsValue
-    {
-        [JsonProperty("key")] 
-        public string Key { get; internal set; }
-
-        [JsonProperty("value")] 
-        public long Value { get; internal set; }
-
-        [JsonProperty("sorting")] 
-        public string Sorting { get; internal set; }
-
-        [JsonProperty("rank")] 
-        public int Rank { get; internal set; }
     }
 }
