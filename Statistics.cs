@@ -51,6 +51,12 @@ namespace StatsIO
             var put = await Client.PutAsync($"/v1/statistics/{Id}", null);
         }
 
+        /// <summary>
+        /// Get the ranking of a user.
+        /// </summary>
+        /// <param name="id">User Id</param>
+        /// <returns></returns>
+        /// <exception cref="APIException"></exception>
         public async Task<IOUserStats> ShowUserStatsAsync(string id)
         {
             var get = await Client.GetAsync($"/v1/statistics/{id}");
@@ -59,6 +65,23 @@ namespace StatsIO
             var responseContet = Deserialize<IOUserStats>(await get.Content.ReadAsStreamAsync());
             get.Content.Dispose();
             return responseContet;
+        }
+
+        /// <summary>
+        /// Get a certain section of GTD
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="gtdKey"></param>
+        /// <returns></returns>
+        /// <exception cref="APIException"></exception>
+        public async Task<IOStatSection> GetSectionAsync(string id, string gtdKey)
+        {
+            var get = await Client.GetAsync($"/v1/statistics/{id}/section/{gtdKey}");
+            if (!get.IsSuccessStatusCode)
+                throw new APIException(EvaluateException((int) get.StatusCode));
+            var responseContent = Deserialize<IOStatSection>(await get.Content.ReadAsStreamAsync());
+            get.Content.Dispose();
+            return responseContent;
         }
     }
 }
