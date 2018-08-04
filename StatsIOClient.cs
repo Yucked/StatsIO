@@ -1,10 +1,10 @@
-﻿namespace GlobalSharp
+﻿namespace StatsIO
 {
-    public class GlobalClient : GlobalBase
+    public class StatsIOClient : StatsIOBase
     {
         public Statistics Statistics { get; }
 
-        public GlobalClient(string clientId, string clientSecret)
+        public StatsIOClient(string clientId, string clientSecret)
         {
             ClientId = clientId;
             ClientSecret = clientSecret;
