@@ -2,12 +2,12 @@
 using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
-using GlobalSharp.Objects;
+using StatsIO.Objects;
 using System.Threading.Tasks;
 
-namespace GlobalSharp
+namespace StatsIO
 {
-    public class Statistics : GlobalBase
+    public class Statistics : StatsIOBase
     {
         internal readonly Random Random;
         internal string GenerateUsername => $"IO-{Random.Next(9999)}";
@@ -21,7 +21,7 @@ namespace GlobalSharp
         /// Creates a new entry in your GTD
         /// </summary>
         /// <param name="name">Name of the user</param>
-        /// <exception cref="GlobalException"></exception>
+        /// <exception cref="APIException"></exception>
         public async Task<IOStatistics> CreateAsync(string name = null)
         {
             var login = await LoginAsync();
@@ -34,7 +34,7 @@ namespace GlobalSharp
             }), Encoding.UTF8, "application/json");
             var post = await Client.PostAsync("v1/statistics", content);
             if (!post.IsSuccessStatusCode)
-                throw new GlobalException(EvaluateException((int) post.StatusCode));
+                throw new APIException(EvaluateException((int) post.StatusCode));
             var responseContent = Deserialize<IOStatistics>(await post.Content.ReadAsStreamAsync());
             content.Dispose();
             post.Content.Dispose();
@@ -51,9 +51,14 @@ namespace GlobalSharp
             var put = await Client.PutAsync($"/v1/statistics/{Id}", null);
         }
 
-        public async Task ShowUserStatsAsync(string id)
+        public async Task<IOUserStats> ShowUserStatsAsync(string id)
         {
-            
+            var get = await Client.GetAsync($"/v1/statistics/{id}");
+            if (!get.IsSuccessStatusCode)
+                throw new APIException(EvaluateException((int) get.StatusCode));
+            var responseContet = Deserialize<IOUserStats>(await get.Content.ReadAsStreamAsync());
+            get.Content.Dispose();
+            return responseContet;
         }
     }
 }
