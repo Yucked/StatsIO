@@ -1,31 +1,45 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Net.Http;
 using Newtonsoft.Json;
-using GlobalSharp.Objects;
+using StatsIO.Objects;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Converters;
 
-namespace GlobalSharp
+namespace StatsIO
 {
-    public abstract class GlobalBase
+    public abstract class StatsIOBase
     {
         internal string ClientId;
         internal string ClientSecret;
 
         internal readonly HttpClient Client;
         internal IOAccessToken IOAccessToken;
-        internal readonly JsonSerializer Serializer;
+        private readonly JsonSerializer Serializer;
 
-        protected GlobalBase()
+        protected StatsIOBase()
         {
             Client = new HttpClient
             {
                 BaseAddress = new Uri("https://api.globalstats.io/")
             };
             Client.DefaultRequestHeaders.Clear();
-            Serializer = new JsonSerializer();
+            Serializer = new JsonSerializer
+            {
+                DateParseHandling = DateParseHandling.None,
+                NullValueHandling = NullValueHandling.Ignore,
+                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,                
+                Converters =
+                {
+                    new IsoDateTimeConverter
+                    {
+                        DateTimeStyles = DateTimeStyles.AssumeUniversal
+                    }
+                }
+            };
         }
 
         protected async Task<bool> LoginAsync()
@@ -36,7 +50,7 @@ namespace GlobalSharp
                 Encoding.UTF8, "application/x-www-form-urlencoded");
             var post = await Client.PostAsync("oauth/access_token", content);
             if (!post.IsSuccessStatusCode)
-                throw new GlobalException(EvaluateException((int) post.StatusCode));
+                throw new APIException(EvaluateException((int) post.StatusCode));
             IOAccessToken = Deserialize<IOAccessToken>(await post.Content.ReadAsStreamAsync());
             content.Dispose();
             post.Content.Dispose();

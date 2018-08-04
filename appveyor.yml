@@ -1,6 +1,6 @@
 version: GSI.{build}
 image: Visual Studio 2017 Preview
-clone_folder: C:\Projects\GlobalSharp
+clone_folder: C:\Projects\StatsIO
 skip_commits:
   message: /Update/
 nuget:

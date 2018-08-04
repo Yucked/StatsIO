@@ -1,10 +1,10 @@
-# GlobalSharp 🏅
-[![Build status](https://img.shields.io/appveyor/ci/yucked/globalsharp/master.svg?longCache=true&style=for-the-badge&logo=appveyor&colorA=303030&colorB=72ffc9&label=Current+Build)](https://ci.appveyor.com/project/Yucked/globalsharp)
+# StatsIO 🏅
+[![Build status](https://img.shields.io/appveyor/ci/yucked/statsio/master.svg?longCache=true&style=for-the-badge&logo=appveyor&colorA=303030&colorB=72ffc9&label=Current+Build)](https://ci.appveyor.com/project/Yucked/statsio)
 
 ## `Usage:`
 
 ```cs
-var client = new GlobalClient("Client-ID", "Client-Secret");
+var client = new StatsClient("Client-ID", "Client-Secret");
 await client.Statistics.AddOrUpdateAsync("Stats-Id", "Username");
 ```
 
@@ -12,7 +12,7 @@ await client.Statistics.AddOrUpdateAsync("Stats-Id", "Username");
 
 - Statistics Implementations:  
     - [ ] `Statistics#UpdateAsync`
-    - [ ] `Statistics#ShowAsync`
+    - [x] `Statistics#ShowUserStatsAsync`
     - [ ] `Statistics#GetSectionAsync`
     - [ ] `Statistics#LeaderboadsAsync`
 - Achivements Implementations: 
@@ -21,5 +21,5 @@ await client.Statistics.AddOrUpdateAsync("Stats-Id", "Username");
     - [ ] `Achivements#DisplayUsersAsync`
 - [ ] Need to figure linking out :thinking:    
 - [ ] Come up with better method names (?) :weary:
-- [ ] `GlobalException` class for handling HTTP exceptions ⚠️
+- [x] `APIException` class for handling HTTP exceptions ⚠️
 - [ ] Separate branch for Discord stuff.
