@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace GlobalSharp.Objects
+namespace StatsIO.Objects
 {
     public class IOAccessToken
     {
@@ -14,8 +14,8 @@ namespace GlobalSharp.Objects
         [JsonProperty("access_token")]
         public string Token { get; internal set; }
         
-        [JsonIgnore]
-        public int CreatedAt = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+        [JsonIgnore] 
+        private readonly int CreatedAt = (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
         
         [JsonIgnore]
         public bool IsValid => CreatedAt + ExpiresIn - 120 > (int)DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;

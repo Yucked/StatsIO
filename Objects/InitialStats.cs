@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GlobalSharp.Objects
+namespace StatsIO.Objects
 {
     public struct InitialStats
     {
