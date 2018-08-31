@@ -3,15 +3,15 @@ using System.Threading.Tasks;
 
 namespace StatsIO
 {
-    public class Achivements : StatsIOBase
+    public class Achievements : StatsIOBase
     {
-        public async Task<IOAchivements> GetAllAsync()
+        public async Task<IOAchievements> GetAllAsync()
         {
             await LoginAsync();
             var get = await Client.GetAsync("/v1/achievements");
             if (!get.IsSuccessStatusCode)
                 throw new APIException(EvaluateException((int) get.StatusCode));
-            var content = Deserialize<IOAchivements>(await get.Content.ReadAsStreamAsync());
+            var content = Deserialize<IOAchievements>(await get.Content.ReadAsStreamAsync());
             get.Content.Dispose();
             return content;
         }
@@ -27,13 +27,13 @@ namespace StatsIO
             return content;
         }
 
-        public async Task<IOAchivements> DisplayUsersAsync(string id)
+        public async Task<IOAchievements> DisplayUsersAsync(string id)
         {
             await LoginAsync();
             var get = await Client.GetAsync($"/v1/statistics/{id}/achievements");
             if (!get.IsSuccessStatusCode)
                 throw new APIException(EvaluateException((int) get.StatusCode));
-            var content = Deserialize<IOAchivements>(await get.Content.ReadAsStreamAsync());
+            var content = Deserialize<IOAchievements>(await get.Content.ReadAsStreamAsync());
             get.Content.Dispose();
             return content;
         }

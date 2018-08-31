@@ -9,7 +9,7 @@ namespace StatsIO
     public class StatsIOClient : StatsIOBase
     {
         public Statistics Statistics { get; }
-        public Achivements Achivements { get; }
+        public Achievements Achievements { get; }
 
         internal static string ClientId;
         internal static string ClientSecret;
@@ -19,7 +19,7 @@ namespace StatsIO
             ClientId = clientId;
             ClientSecret = clientSecret;
             Statistics = new Statistics();
-            Achivements = new Achivements();
+            Achievements = new Achievements();
         }
 
         public async Task<IOLink> LinkAsync(string id, string email)
