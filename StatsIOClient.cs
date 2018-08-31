@@ -1,8 +1,8 @@
-﻿using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Text;
 using StatsIO.Objects;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace StatsIO
 {
@@ -21,7 +21,6 @@ namespace StatsIO
             Statistics = new Statistics();
             Achivements = new Achivements();
         }
-
 
         public async Task<IOLink> LinkAsync(string id, string email)
         {
