@@ -48,7 +48,7 @@ namespace StatsIO
                 Encoding.UTF8, "application/x-www-form-urlencoded");
             var post = await Client.PostAsync("oauth/access_token", content);
             if (!post.IsSuccessStatusCode)
-                throw new APIException(EvaluateException((int)post.StatusCode));
+                throw new APIException(EvaluateException((int) post.StatusCode));
             IOAccessToken = Deserialize<IOAccessToken>(await post.Content.ReadAsStreamAsync());
             content.Dispose();
             post.Content.Dispose();
