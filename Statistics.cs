@@ -30,11 +30,11 @@ namespace StatsIO
             var content = new StringContent(JsonConvert.SerializeObject(new InitialStats
             {
                 Name = string.IsNullOrWhiteSpace(name) ? GenerateUsername : name,
-                Values = new Values { Notes = 100 }
+                Values = new Values {Notes = 100}
             }), Encoding.UTF8, "application/json");
             var post = await Client.PostAsync("v1/statistics", content);
             if (!post.IsSuccessStatusCode)
-                throw new APIException(EvaluateException((int)post.StatusCode));
+                throw new APIException(EvaluateException((int) post.StatusCode));
             var responseContent = Deserialize<IOStatistics>(await post.Content.ReadAsStreamAsync());
             content.Dispose();
             post.Content.Dispose();
@@ -57,7 +57,7 @@ namespace StatsIO
         /// <param name="id">User Id</param>
         /// <returns></returns>
         /// <exception cref="APIException"></exception>
-        public async Task<IOUserStats> ShowUserStatsAsync(string id)
+        public async Task<IOUserStats> GetAsync(string id)
         {
             await LoginAsync();
             if (!IOAccessToken.IsValid)
@@ -65,7 +65,7 @@ namespace StatsIO
 
             var get = await Client.GetAsync($"/v1/statistics/{id}");
             if (!get.IsSuccessStatusCode)
-                throw new APIException(EvaluateException((int)get.StatusCode));
+                throw new APIException(EvaluateException((int) get.StatusCode));
             var responseContet = Deserialize<IOUserStats>(await get.Content.ReadAsStreamAsync());
             get.Content.Dispose();
             return responseContet;
@@ -82,13 +82,13 @@ namespace StatsIO
         {
             var get = await Client.GetAsync($"/v1/statistics/{id}/section/{gtdKey}");
             if (!get.IsSuccessStatusCode)
-                throw new APIException(EvaluateException((int)get.StatusCode));
+                throw new APIException(EvaluateException((int) get.StatusCode));
             var responseContent = Deserialize<IOStatSection>(await get.Content.ReadAsStreamAsync());
             get.Content.Dispose();
             return responseContent;
         }
 
-        public async Task<IOLeaderboards> GetLeaderboardAsync(string GTDKey, int limit = 100, params string[] GTDValues)
+        public async Task<IOLeaderboards> LeaderboardAsync(string GTDKey, int limit = 100, params string[] GTDValues)
         {
             await LoginAsync();
             if (!IOAccessToken.IsValid)
@@ -103,7 +103,7 @@ namespace StatsIO
             var post = await Client.PostAsync($"/v1/gtdleaderboard/{GTDKey}", content);
 
             if (!post.IsSuccessStatusCode)
-                throw new APIException(EvaluateException((int)post.StatusCode));
+                throw new APIException(EvaluateException((int) post.StatusCode));
             var responseContent = Deserialize<IOLeaderboards>(await post.Content.ReadAsStreamAsync());
             post.Content.Dispose();
             content.Dispose();

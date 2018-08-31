@@ -17,11 +17,11 @@ await client.Statistics.CreateAsync("Stats-Id", "Username");
     - [x] `Statistics#ShowUserStatsAsync`
     - [x] `Statistics#GetSectionAsync`
     - [x] `Statistics#LeaderboadsAsync`
-- Achivements Implementations: 
-    - [ ] `Achivement#AllAsync`
-    - [ ] `Achivements#ManualAsync`
-    - [ ] `Achivements#DisplayUsersAsync`
-- [ ] Need to figure linking out :thinking:
+- Achievements Implementations: 
+    - [x] `Achievement#AllAsync`
+    - [x] `Achievement#ManualAsync`
+    - [x] `Achievement#DisplayUsersAsync`
+- [x] Need to figure linking out :thinking:
 - [x] Renamed project to something better.
 - [x] Come up with better method names (?) :weary:
 - [x] `APIException` class for handling HTTP exceptions ⚠️

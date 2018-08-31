@@ -27,7 +27,7 @@ namespace StatsIO
             return content;
         }
 
-        public async Task<IOAchivements> GetUserAsync(string id)
+        public async Task<IOAchivements> DisplayUsersAsync(string id)
         {
             await LoginAsync();
             var get = await Client.GetAsync($"/v1/statistics/{id}/achievements");
