@@ -13,10 +13,10 @@ await client.Statistics.CreateAsync("Stats-Id", "Username");
 - Statistics Implementations:
     - [x] `Statistics#CreateAsync`
     - [ ] `Statistics#UpdateAsync`
-    - [ ] `Statistics$GetAsync`
+    - [x] `Statistics$GetAsync`
     - [x] `Statistics#ShowUserStatsAsync`
     - [x] `Statistics#GetSectionAsync`
-    - [ ] `Statistics#LeaderboadsAsync`
+    - [x] `Statistics#LeaderboadsAsync`
 - Achivements Implementations: 
     - [ ] `Achivement#AllAsync`
     - [ ] `Achivements#ManualAsync`
