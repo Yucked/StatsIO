@@ -5,21 +5,23 @@
 
 ```cs
 var client = new StatsClient("Client-ID", "Client-Secret");
-await client.Statistics.AddOrUpdateAsync("Stats-Id", "Username");
+await client.Statistics.CreateAsync("Stats-Id", "Username");
 ```
 
 ## `Current Roadmap:`
 
-- Statistics Implementations:  
+- Statistics Implementations:
+    - [x] `Statistics#CreateAsync`
     - [ ] `Statistics#UpdateAsync`
+    - [ ] `Statistics$GetAsync`
     - [x] `Statistics#ShowUserStatsAsync`
-    - [ ] `Statistics#GetSectionAsync`
+    - [x] `Statistics#GetSectionAsync`
     - [ ] `Statistics#LeaderboadsAsync`
 - Achivements Implementations: 
     - [ ] `Achivement#AllAsync`
     - [ ] `Achivements#ManualAsync`
     - [ ] `Achivements#DisplayUsersAsync`
-- [ ] Need to figure linking out :thinking:    
-- [ ] Come up with better method names (?) :weary:
+- [ ] Need to figure linking out :thinking:
+- [x] Renamed project to something better.
+- [x] Come up with better method names (?) :weary:
 - [x] `APIException` class for handling HTTP exceptions ⚠️
-- [ ] Separate branch for Discord stuff.
