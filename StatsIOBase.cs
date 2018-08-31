@@ -13,9 +13,6 @@ namespace StatsIO
 {
     public abstract class StatsIOBase
     {
-        internal string ClientId;
-        internal string ClientSecret;
-
         internal readonly HttpClient Client;
         internal IOAccessToken IOAccessToken;
         private readonly JsonSerializer Serializer;
@@ -31,7 +28,7 @@ namespace StatsIO
             {
                 DateParseHandling = DateParseHandling.None,
                 NullValueHandling = NullValueHandling.Ignore,
-                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,                
+                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
                 Converters =
                 {
                     new IsoDateTimeConverter
@@ -42,21 +39,21 @@ namespace StatsIO
             };
         }
 
-        protected async Task<bool> LoginAsync()
+        protected async Task LoginAsync()
         {
-            if (IOAccessToken != null && IOAccessToken.IsValid) return true;
+            if (IOAccessToken != null && IOAccessToken.IsValid)
+                return;
             var content = new StringContent(
-                $"grant_type=client_credentials&scope=endpoint_client&client_id={ClientId}&client_secret={ClientSecret}",
+                $"grant_type=client_credentials&scope=endpoint_client&client_id={StatsIOClient.ClientId}&client_secret={StatsIOClient.ClientSecret}",
                 Encoding.UTF8, "application/x-www-form-urlencoded");
             var post = await Client.PostAsync("oauth/access_token", content);
             if (!post.IsSuccessStatusCode)
-                throw new APIException(EvaluateException((int) post.StatusCode));
+                throw new APIException(EvaluateException((int)post.StatusCode));
             IOAccessToken = Deserialize<IOAccessToken>(await post.Content.ReadAsStreamAsync());
             content.Dispose();
             post.Content.Dispose();
             Client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(IOAccessToken.TokenType, IOAccessToken.Token);
-            return string.IsNullOrWhiteSpace(IOAccessToken.Token);
         }
 
         protected string EvaluateException(int errorCode)

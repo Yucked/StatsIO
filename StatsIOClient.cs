@@ -1,8 +1,10 @@
 ﻿namespace StatsIO
 {
-    public class StatsIOClient : StatsIOBase
+    public class StatsIOClient
     {
         public Statistics Statistics { get; }
+        internal static string ClientId;
+        internal static string ClientSecret;
 
         public StatsIOClient(string clientId, string clientSecret)
         {

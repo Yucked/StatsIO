@@ -2,7 +2,7 @@
 
 namespace StatsIO.Objects
 {
-    public struct IOUser
+    public class IOUser
     {
         [JsonProperty("name")]
         public string Name { get; set; }

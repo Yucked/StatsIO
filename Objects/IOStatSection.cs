@@ -15,9 +15,9 @@ namespace StatsIO.Objects
         public Ranks WorseRanks { get; set; }
     }
 
-    public class Ranks
+    public struct Ranks
     {
         [JsonProperty("data")] 
-        public List<IOUser> Data { get; set; }
+        public IReadOnlyCollection<IOUser> Data { get; set; }
     }
 }
